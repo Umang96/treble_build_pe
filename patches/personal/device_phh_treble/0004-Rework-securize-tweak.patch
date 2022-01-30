@@ -93,10 +93,13 @@ index 09469e7..c663936 100644
  
      resetprop_phh ro.build.tags release-keys
      resetprop_phh ro.boot.vbmeta.device_state locked
-@@ -749,22 +773,6 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
-     resetprop_phh ro.adb.secure 1
-     setprop ctl.restart adbd
+@@ -746,25 +746,6 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
+     resetprop_phh ro.build.type user
+     resetprop_phh ro.build.selinux 0
  
+-    resetprop_phh ro.adb.secure 1
+-    setprop ctl.restart adbd
+-
 -    # Hide system/xbin/su
 -    mount /mnt/phh/empty_dir /system/xbin
 -    mount /mnt/phh/empty_dir /system/app/me.phh.superuser
