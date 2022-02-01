@@ -21,6 +21,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 WITHOUT_CHECK_API=true
 BL=$PWD/treble_build_pe
 BD=$HOME/builds
+VERSION="v400.h"
 
 if [ ! -d .repo ]
 then
@@ -111,11 +112,34 @@ generatePackages() {
     rm -rf $BD/system-*.img
 }
 
+generateOtaJson() {
+    prefix="PixelExperience_"
+    suffix="-12.0-$BUILD_DATE-UNOFFICIAL.img.xz"
+    json="{\"version\": \"$VERSION\",\"date\": \"$(date +%s)\",\"variants\": ["
+    find $BD -name "*.img.xz" | while read file; do
+        packageVariant=$(echo $(basename $file) | sed -e s/^$prefix// -e s/$suffix$//)
+        case $packageVariant in
+            "arm32_binder64-ab") name="treble_a64_bvS";;
+            "arm32_binder64-ab-vndklite") name="treble_a64_bvS-vndklite";;
+            "arm32_binder64-ab-slim") name="treble_a64_bvS-slim";;
+            "arm64-ab") name="treble_arm64_bvS";;
+            "arm64-ab-vndklite") name="treble_arm64_bvS-vndklite";;
+            "arm64-ab-slim") name="treble_arm64_bvS-slim";;
+        esac
+        size=$(wc -c $file | awk '{print $1}')
+        url="https://github.com/ponces/treble_build_pe/releases/download/$VERSION/$(basename $file)"
+        json="${json} {\"name\": \"$name\",\"size\": \"$size\",\"url\": \"$url\"},"
+    done
+    json="${json%?}]}"
+    echo "$json" | jq . > $BL/ota.json
+}
+
 buildTrebleApp
 buildVariant treble_a64_bvN
 buildVariant treble_arm64_bvN
 buildSasImages
 generatePackages
+generateOtaJson
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
