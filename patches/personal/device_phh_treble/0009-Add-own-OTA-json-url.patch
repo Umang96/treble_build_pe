@@ -1,7 +1,7 @@
 From a45e0580b8779a2a94f12e467b68c167b09d1209 Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Mon, 7 Feb 2022 08:53:12 +0000
-Subject: [PATCH 9/9] Add own OTA json url
+Subject: [PATCH 9/10] Add own OTA json url
 
 ---
  system.prop | 2 +-
