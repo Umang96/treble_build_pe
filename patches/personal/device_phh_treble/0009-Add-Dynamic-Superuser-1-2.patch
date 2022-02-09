@@ -1,7 +1,7 @@
 From fc451c8f158268e8dd2bf80f3d63fe7f48255677 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Tue, 1 Feb 2022 14:45:40 +0000
-Subject: [PATCH 9/10] Add Dynamic Superuser
+Subject: [PATCH 9/9] Add Dynamic Superuser
 
 ---
  base.mk                |   2 ++
