@@ -92,8 +92,6 @@ buildSlimVariant() {
 
 buildSasImages() {
     cd sas-creator
-    sudo bash lite-adapter.sh 32 $BD/system-treble_a64_bvS.img
-    cp s.img $BD/system-treble_a64_bvS-vndklite.img
     sudo bash lite-adapter.sh 64 $BD/system-treble_arm64_bvS.img
     cp s.img $BD/system-treble_arm64_bvS-vndklite.img
     sudo rm -rf s.img d tmp
@@ -101,10 +99,6 @@ buildSasImages() {
 }
 
 generatePackages() {
-    BASE_IMAGE=$BD/system-treble_a64_bvS.img
-    xz -cv $BASE_IMAGE -T0 > $BD/PixelExperience_arm32_binder64-ab-12.0-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv ${BASE_IMAGE%.img}-vndklite.img -T0 > $BD/PixelExperience_arm32_binder64-ab-vndklite-12.0-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv ${BASE_IMAGE%.img}-slim.img -T0 > $BD/PixelExperience_arm32_binder64-ab-slim-12.0-$BUILD_DATE-UNOFFICIAL.img.xz
     BASE_IMAGE=$BD/system-treble_arm64_bvS.img
     xz -cv $BASE_IMAGE -T0 > $BD/PixelExperience_arm64-ab-12.0-$BUILD_DATE-UNOFFICIAL.img.xz
     xz -cv ${BASE_IMAGE%.img}-vndklite.img -T0 > $BD/PixelExperience_arm64-ab-vndklite-12.0-$BUILD_DATE-UNOFFICIAL.img.xz
@@ -120,9 +114,6 @@ generateOtaJson() {
         while read file; do
             packageVariant=$(echo $(basename $file) | sed -e s/^$prefix// -e s/$suffix$//)
             case $packageVariant in
-                "arm32_binder64-ab") name="treble_a64_bvS";;
-                "arm32_binder64-ab-vndklite") name="treble_a64_bvS-vndklite";;
-                "arm32_binder64-ab-slim") name="treble_a64_bvS-slim";;
                 "arm64-ab") name="treble_arm64_bvS";;
                 "arm64-ab-vndklite") name="treble_arm64_bvS-vndklite";;
                 "arm64-ab-slim") name="treble_arm64_bvS-slim";;
@@ -137,7 +128,6 @@ generateOtaJson() {
 }
 
 buildTrebleApp
-buildVariant treble_a64_bvS
 buildVariant treble_arm64_bvS
 buildSasImages
 generatePackages
