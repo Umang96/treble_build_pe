@@ -1,7 +1,7 @@
 From 1bcd7788507351c3a890be3c5563950d584736e1 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Tue, 1 Feb 2022 14:47:52 +0000
-Subject: [PATCH] Enable Dynamic Superuser (2/2)
+Subject: [PATCH 3/4] Enable Dynamic Superuser (2/2)
 
 ---
  app/src/main/java/me/phh/treble/app/Misc.kt         | 5 +++++
