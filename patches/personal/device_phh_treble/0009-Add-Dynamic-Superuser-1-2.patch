@@ -1,7 +1,7 @@
 From fc451c8f158268e8dd2bf80f3d63fe7f48255677 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Tue, 1 Feb 2022 14:45:40 +0000
-Subject: [PATCH 9/9] Add Dynamic Superuser
+Subject: [PATCH 9/9] Add Dynamic Superuser (1/2)
 
 ---
  base.mk                |   2 ++
@@ -16438,10 +16438,10 @@ literal 0
 HcmV?d00001
 
 diff --git a/phh-prop-handler.sh b/phh-prop-handler.sh
-index 8b65a68..ffa840c 100644
+index 8b65a68..7e7948b 100644
 --- a/phh-prop-handler.sh
 +++ b/phh-prop-handler.sh
-@@ -155,6 +155,28 @@ if [ "$1" == "persist.sys.phh.caf.audio_policy" ];then
+@@ -155,6 +155,30 @@ if [ "$1" == "persist.sys.phh.caf.audio_policy" ];then
      exit
  fi
  
@@ -16454,6 +16454,8 @@ index 8b65a68..ffa840c 100644
 +        umount -l /system/xbin
 +        cp -a /system/xbin /mnt/phh
 +        cp /system/bin/phh-su /mnt/phh/xbin/su
++        chmod 0755 /mnt/phh/xbin/su
++        chown root:root /mnt/phh/xbin/su
 +        mount /mnt/phh/xbin /system/xbin
 +        restorecon -R /system/xbin
 +        setprop ctl.start sudaemon
