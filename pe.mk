@@ -8,3 +8,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.system.ota.json_url=https://raw.githubusercontent.com/ponces/treble_build_pe/twelve/ota.json
 
 TARGET_SUPPORTS_QUICK_TAP := true
+
+PRODUCT_PACKAGES += \
+    libaptX_encoder \
+    libaptXHD_encoder
