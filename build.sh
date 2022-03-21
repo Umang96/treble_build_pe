@@ -102,7 +102,6 @@ buildVariant
 buildSlimVariant
 buildVndkliteVariant
 generatePackages
-generateOtaJson
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
