@@ -1,12 +1,16 @@
 #!/bin/bash
-echo ""
-echo "Pixel Experience 12 Treble Buildbot"
-echo "ATTENTION: this script syncs repo on each run"
-echo "Executing in 5 seconds - CTRL-C to exit"
-echo ""
-sleep 5
 
-# Abort early on error
+START=`date +%s`
+BUILD_DATE="$(date +%Y%m%d)"
+
+BL=$PWD/treble_build_pe
+BD=$HOME/builds
+BRANCH=$1
+
+[ "$BRANCH" == "" ] && BRANCH="twelve"
+[ "$BRANCH" == "twelve" ] && BUILD="PixelExperience" || BUILD="PixelExperience_Plus"
+[ "$BRANCH" == "twelve" ] && PEMK="$BL/pe.mk" || PEMK="$BL/peplus.mk"
+
 set -eE
 trap '(\
 echo;\
@@ -16,16 +20,17 @@ echo \!\!\! failed patch application, etc.;\
 echo\
 )' ERR
 
-START=`date +%s`
-BUILD_DATE="$(date +%Y%m%d)"
-WITHOUT_CHECK_API=true
-BL=$PWD/treble_build_pe
-BD=$HOME/builds
+echo ""
+[ "$BRANCH" == "twelve" ] && echo "Pixel Experience 12 Treble Buildbot" || echo "Pixel Experience Plus 12 Treble Buildbot"
+echo "ATTENTION: this script syncs repo on each run"
+echo "Executing in 5 seconds - CTRL-C to exit"
+echo ""
+sleep 5
 
 if [ ! -d .repo ]
 then
     echo "Initializing PE workspace"
-    repo init -u https://github.com/PixelExperience/manifest -b twelve
+    repo init -u https://github.com/PixelExperience/manifest -b $BRANCH
     echo ""
 
     echo "Preparing local manifest"
@@ -49,14 +54,14 @@ echo ""
 
 echo "Applying PHH patches"
 cd device/phh/treble
-cp $BL/pe.mk .
+cp $PEMK .
 bash generate.sh pe
 cd ../../..
-bash $BL/apply-patches.sh $BL phh
+bash $BL/apply-patches.sh $BL phh $BRANCH
 echo ""
 
 echo "Applying personal patches"
-bash $BL/apply-patches.sh $BL personal
+bash $BL/apply-patches.sh $BL personal $BRANCH
 echo ""
 
 buildTrebleApp() {
@@ -91,9 +96,9 @@ buildVndkliteVariant() {
 }
 
 generatePackages() {
-    xz -cv $BD/system-treble_arm64_bvS.img -T0 > $BD/PixelExperience_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvS-vndklite.img -T0 > $BD/PixelExperience_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvS-slim.img -T0 > $BD/PixelExperience_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvS.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvS-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvS-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
     rm -rf $BD/system-*.img
 }
 
