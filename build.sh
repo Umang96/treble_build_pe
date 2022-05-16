@@ -72,11 +72,11 @@ buildTrebleApp() {
 }
 
 buildVariant() {
-    lunch treble_arm64_bvS-userdebug
+    lunch treble_arm64_bvN-userdebug
     make installclean
     make -j$(nproc --all) systemimage
     make vndk-test-sepolicy
-    mv $OUT/system.img $BD/system-treble_arm64_bvS.img
+    mv $OUT/system.img $BD/system-treble_arm64_bvN.img
 }
 
 buildSlimVariant() {
@@ -84,21 +84,21 @@ buildSlimVariant() {
     (cd vendor/gapps && git am /tmp/slim.patch)
     make -j$(nproc --all) systemimage
     (cd vendor/gapps && git reset --hard HEAD~1)
-    mv $OUT/system.img $BD/system-treble_arm64_bvS-slim.img
+    mv $OUT/system.img $BD/system-treble_arm64_bvN-slim.img
 }
 
 buildVndkliteVariant() {
     cd sas-creator
-    sudo bash lite-adapter.sh 64 $BD/system-treble_arm64_bvS.img
-    cp s.img $BD/system-treble_arm64_bvS-vndklite.img
+    sudo bash lite-adapter.sh 64 $BD/system-treble_arm64_bvN.img
+    cp s.img $BD/system-treble_arm64_bvN-vndklite.img
     sudo rm -rf s.img d tmp
     cd ..
 }
 
 generatePackages() {
-    xz -cv $BD/system-treble_arm64_bvS.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvS-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvS-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvN.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
     rm -rf $BD/system-*.img
 }
 
