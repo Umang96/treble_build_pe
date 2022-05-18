@@ -1,7 +1,7 @@
 From 34b22c6fbab53db78a169bf13c6aefaebb3ec5b7 Mon Sep 17 00:00:00 2001
 From: Chenyang Zhong <zhongcy95@gmail.com>
 Date: Sun, 8 May 2022 04:07:54 -0400
-Subject: [PATCH 5/5] DisplayPowerController: avoid updating settings when
+Subject: [PATCH 4/4] DisplayPowerController: avoid updating settings when
  adjustment is NaN
 
 E AndroidRuntime: *** FATAL EXCEPTION IN SYSTEM PROCESS: PowerManagerService
