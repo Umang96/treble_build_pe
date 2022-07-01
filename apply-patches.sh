@@ -12,10 +12,10 @@ for b in $branches;do
         [ "$p" == build ] && p=build/make
         [ "$p" == treble/app ] && p=treble_app
         [ "$p" == vendor/hardware/overlay ] && p=vendor/hardware_overlay
-        pushd $p
+        pushd $p &>/dev/null
         for patch in $patches/patches/$tree/$b/$project/*.patch;do
             git am $patch || exit
         done
-        popd
+        popd &>/dev/null
     done
 done
