@@ -19,14 +19,16 @@ BRANCH=$1
 [ "$BRANCH" == "twelve" ] && PEMK="$BL/pe.mk" || PEMK="$BL/peplus.mk"
 
 initRepos() {
-    echo "--> Initializing PE workspace"
-    repo init -u https://github.com/PixelExperience/manifest -b $BRANCH
-    echo
+    if [ ! -d .repo ]; then
+        echo "--> Initializing PE workspace"
+        repo init -u https://github.com/PixelExperience/manifest -b $BRANCH
+        echo
 
-    echo "--> Preparing local manifest"
-    mkdir -p .repo/local_manifests
-    cp $BL/manifest.xml .repo/local_manifests/pixel.xml
-    echo
+        echo "--> Preparing local manifest"
+        mkdir -p .repo/local_manifests
+        cp $BL/manifest.xml .repo/local_manifests/pixel.xml
+        echo
+    fi
 }
 
 syncRepos() {
@@ -110,7 +112,7 @@ generatePackages() {
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 
-[ ! -d .repo ] && initRepos
+initRepos
 syncRepos
 applyPatches
 setupEnv
