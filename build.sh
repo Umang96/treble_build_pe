@@ -112,9 +112,14 @@ generatePackages() {
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 
-initRepos
-syncRepos
-applyPatches
+if [[ $# -eq 2 && "$2" -gt 0 ]]
+then
+	echo "--> Skipping init, sync, patching"
+else
+	initRepos
+	syncRepos
+	applyPatches
+fi
 setupEnv
 buildTrebleApp
 buildVariant
