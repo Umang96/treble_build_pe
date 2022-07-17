@@ -1,0 +1,26 @@
+From 86a72869c3424e6a9023def6c539102f95d5eaf5 Mon Sep 17 00:00:00 2001
+From: Umang96 <umangleekha3@gmail.com>
+Date: Sun, 17 Jul 2022 11:26:04 +0530
+Subject: [PATCH] Kill drc, produces random volume bug on custom roms
+
+Change-Id: Ic49e7b9f584640049692da4ddf4894e309487c69
+---
+ .../audiopolicy/common/managerdefinitions/src/Serializer.cpp    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+index 06c65f1d85..ac99398473 100644
+--- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
++++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+@@ -1063,7 +1063,7 @@ PolicySerializer::deserialize<GlobalConfigTraits>(
+             std::string attr = getXmlAttribute(cur, Attributes::speakerDrcEnabled);
+             if (!attr.empty() &&
+                     convertTo<std::string, bool>(attr, value)) {
+-                config->setSpeakerDrcEnabled(value);
++                config->setSpeakerDrcEnabled(false);
+             }
+             attr = getXmlAttribute(cur, Attributes::callScreenModeSupported);
+             if (!attr.empty() &&
+-- 
+2.25.1
+
