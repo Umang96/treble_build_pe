@@ -74,7 +74,12 @@ buildTrebleApp() {
 buildVariant() {
     echo "--> Building treble_arm64_bvN"
     lunch treble_arm64_bvN-userdebug
-    make installclean
+    if [[ $# -gt 2 && "$2" -gt 0 ]]
+	then
+	echo "--> Skipping installclean"
+	else
+    	make installclean
+	fi
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
     echo
@@ -112,7 +117,7 @@ generatePackages() {
 START=`date +%s`
 BUILD_DATE="$(date +%Y%m%d)"
 
-if [[ $# -eq 2 && "$2" -gt 0 ]]
+if [[ $# -gt 1 && "$2" -gt 0 ]]
 then
 	echo "--> Skipping init, sync, patching"
 else
@@ -123,8 +128,8 @@ fi
 setupEnv
 buildTrebleApp
 buildVariant
-buildSlimVariant
-buildVndkliteVariant
+#buildSlimVariant
+#buildVndkliteVariant
 generatePackages
 
 END=`date +%s`
