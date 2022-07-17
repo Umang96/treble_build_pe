@@ -1,0 +1,35 @@
+From ce43813090c33bd649824071fcdc6c05472d3cac Mon Sep 17 00:00:00 2001
+From: Umang96 <umangleekha3@gmail.com>
+Date: Sun, 17 Jul 2022 13:32:25 +0530
+Subject: [PATCH] Spoof ro.build.selinux 1 always
+
+Change-Id: Ic642fd867c4bd4708227588e68f2569f7994c7a4
+---
+ libc/system_properties/system_properties.cpp | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/libc/system_properties/system_properties.cpp b/libc/system_properties/system_properties.cpp
+index d6e7e3e68..f62c340cc 100644
+--- a/libc/system_properties/system_properties.cpp
++++ b/libc/system_properties/system_properties.cpp
+@@ -257,9 +257,16 @@ int SystemProperties::Get(const char* name, char* value) {
+   const prop_info* pi = Find(name);
+ 
+   if (pi != nullptr) {
+-    return Read(pi, nullptr, value);
++    int toRet = Read(pi, nullptr, value);
++    if(strcmp(name, "ro.build.selinux") == 0) {
++		value[0] = 1;
++  	}
++  	return toRet;
+   } else {
+     value[0] = 0;
++    if(strcmp(name, "ro.build.selinux") == 0) {
++		value[0] = 1;
++  	}
+     return 0;
+   }
+ }
+-- 
+2.25.1
+
