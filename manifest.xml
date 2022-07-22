@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
+  <remove-project name="packages_apps_Settings" />
+  <remove-project name="frameworks_base" />
   <project path="device/generic/common" name="device/generic/common" groups="pdk" />
   <project name="umang96/vendor_hardware_overlay" path="vendor/hardware_overlay" remote="github" revision="twelve" />
   <project name="umang96/device_phh_treble" path="device/phh/treble" remote="github" revision="twelve" />
@@ -9,4 +11,6 @@
   <project name="umang96/treble_app" path="treble_app" remote="github" revision="twelve" />
   <project name="ponces/sas-creator" path="sas-creator" remote="github" revision="master" />
   <project name="notmyst33d/libaptX" path="external/aptx" remote="github" revision="main" />
+  <project name="umang96/packages_apps_Settings" path="packages/apps/Settings" remote="github" revision="twelve-plus" />
+  <project name="umang96/frameworks_base" path="frameworks/base" remote="github" revision="twelve-plus" />
 </manifest>

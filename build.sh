@@ -4,7 +4,7 @@ echo
 echo "--------------------------------------"
 echo "    Pixel Experience 12.1 Buildbot    "
 echo "                  by                  "
-echo "                ponces                "
+echo "            ponces, umang96           "
 echo "--------------------------------------"
 echo
 
@@ -12,7 +12,7 @@ set -e
 
 BL=$PWD/treble_build_pe
 BD=$HOME/builds
-BRANCH=$1
+BRANCH="twelve-plus"
 
 [ "$BRANCH" == "" ] && BRANCH="twelve"
 [ "$BRANCH" == "twelve" ] && BUILD="PixelExperience" || BUILD="PixelExperience_Plus"
@@ -74,12 +74,6 @@ buildTrebleApp() {
 buildVariant() {
     echo "--> Building treble_arm64_bvN"
     lunch treble_arm64_bvN-userdebug
-    if [[ $# -gt 2 && "$2" -gt 0 ]]
-	then
-	echo "--> Skipping installclean"
-	else
-    	make installclean
-	fi
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
     echo
@@ -108,8 +102,8 @@ buildVndkliteVariant() {
 generatePackages() {
     echo "--> Generating packages"
     xz -cv $BD/system-treble_arm64_bvN.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    #xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
+    #xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
     rm -rf $BD/system-*.img
     echo
 }
