@@ -1,0 +1,57 @@
+From d2f34d57a2cb62d5819346f6cb69547fb06a0723 Mon Sep 17 00:00:00 2001
+From: Umang96 <umangleekha3@gmail.com>
+Date: Sat, 23 Jul 2022 13:19:39 +0530
+Subject: [PATCH] Don't want too many gapps
+
+---
+ config.mk | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/config.mk b/config.mk
+index d528d2c..94208f5 100644
+--- a/config.mk
++++ b/config.mk
+@@ -16,18 +16,6 @@
+ #
+ #
+ 
+-# Recorder
+-ifeq ($(TARGET_SUPPORTS_GOOGLE_RECORDER), true)
+-PRODUCT_PACKAGES += \
+-    RecorderPrebuilt
+-endif
+-
+-# arcore
+-ifeq ($(TARGET_INCLUDE_STOCK_ARCORE),true)
+-PRODUCT_PACKAGES += \
+-    arcore
+-endif
+-
+ # Live Wallpapers
+ ifeq ($(TARGET_INCLUDE_LIVE_WALLPAPERS),true)
+ PRODUCT_PACKAGES += \
+@@ -63,13 +51,10 @@ PRODUCT_PACKAGES += \
+     LatinIMEGooglePrebuilt \
+     LocationHistoryPrebuilt \
+     MarkupGoogle \
+-    Photos \
+     PixelThemesStub \
+-    PixelWallpapers2021 \
+     PrebuiltBugle \
+     PrebuiltDeskClockGoogle \
+     PrebuiltGoogleTelemetryTvp \
+-    SoundAmplifierPrebuilt \
+     SoundPickerPrebuilt \
+     TrichromeLibrary \
+     TrichromeLibrary-Stub \
+@@ -109,7 +94,6 @@ PRODUCT_PACKAGES += \
+     Phonesky \
+     PrebuiltBugle \
+     SCONE \
+-    SafetyHubPrebuilt \
+     ScribePrebuilt \
+     SecurityHubPrebuilt \
+     SettingsIntelligenceGooglePrebuilt \
+-- 
+2.25.1
+
