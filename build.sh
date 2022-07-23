@@ -104,7 +104,7 @@ generatePackages() {
     xz -cv $BD/system-treble_arm64_bvN.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
     #xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
     #xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    rm -rf $BD/system-*.img
+    #rm -rf $BD/system-*.img
     echo
 }
 
