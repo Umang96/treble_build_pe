@@ -3,6 +3,7 @@
   <remove-project name="packages_apps_Settings" />
   <remove-project name="frameworks_base" />
   <remove-project name="vendor_aosp" />
+  <remove-project name="platform/external/sqlite" />
   <project path="device/generic/common" name="device/generic/common" groups="pdk" />
   <project name="umang96/vendor_hardware_overlay" path="vendor/hardware_overlay" remote="github" revision="twelve" />
   <project name="umang96/device_phh_treble" path="device/phh/treble" remote="github" revision="twelve" />
@@ -15,4 +16,5 @@
   <project name="umang96/packages_apps_Settings" path="packages/apps/Settings" remote="github" revision="twelve-plus" />
   <project name="umang96/frameworks_base" path="frameworks/base" remote="github" revision="twelve-plus" />
   <project name="umang96/vendor_aosp" path="vendor/aosp" remote="github" revision="lawnchair" />
+  <project name="crdroid/android_external_sqlite" path="external/sqlite" remote="github" revision="12.1" />
 </manifest>
