@@ -1,0 +1,27 @@
+From 5ec5b5430ef9b2393db9a28883fe7013f797789c Mon Sep 17 00:00:00 2001
+From: Umang96 <umangleekha3@gmail.com>
+Date: Thu, 28 Jul 2022 21:58:12 +0530
+Subject: [PATCH] Don't throw if not registered
+
+Change-Id: I44d2d93389cc9bf5dae7aa982f176e3e543d42da
+---
+ framework/src/android/net/ConnectivityManager.java | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/framework/src/android/net/ConnectivityManager.java b/framework/src/android/net/ConnectivityManager.java
+index 2eb5fb72a..8236c0ae3 100644
+--- a/framework/src/android/net/ConnectivityManager.java
++++ b/framework/src/android/net/ConnectivityManager.java
+@@ -4602,6 +4602,9 @@ public class ConnectivityManager {
+         // Callback is reusable immediately. http://b/20701525, http://b/35921499.
+         synchronized (sCallbacks) {
+             if (networkCallback.networkRequest == null) {
++                if(mContext != null && mContext.getOpPackageName().startsWith("com.qualcomm.")) {
++                    return;
++                }
+                 throw new IllegalArgumentException("NetworkCallback was not registered");
+             }
+             if (networkCallback.networkRequest == ALREADY_UNREGISTERED) {
+-- 
+2.25.1
+
