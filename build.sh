@@ -33,7 +33,7 @@ initRepos() {
 
 syncRepos() {
     echo "--> Syncing repos"
-    repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+    repo sync -c --force-sync --no-clone-bundle --no-tags -j8
     echo
 }
 
@@ -74,7 +74,7 @@ buildTrebleApp() {
 buildVariant() {
     echo "--> Building treble_arm64_bvN"
     lunch treble_arm64_bvN-userdebug
-    make -j$(nproc --all) systemimage
+    make -j8 systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
     echo
 }
@@ -83,7 +83,7 @@ buildSlimVariant() {
     echo "--> Building treble_arm64_bvN-slim"
     wget https://gist.github.com/ponces/891139a70ee4fdaf1b1c3aed3a59534e/raw/slim.patch -O /tmp/slim.patch
     (cd vendor/gapps && git am /tmp/slim.patch && rm /tmp/slim.patch)
-    make -j$(nproc --all) systemimage
+    make -j8 systemimage
     (cd vendor/gapps && git reset --hard HEAD~1)
     mv $OUT/system.img $BD/system-treble_arm64_bvN-slim.img
     echo
@@ -102,9 +102,6 @@ buildVndkliteVariant() {
 generatePackages() {
     echo "--> Generating packages"
     xz -cv $BD/system-treble_arm64_bvN.img -T0 > $BD/"$BUILD"_arm64-ab-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    #xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/"$BUILD"_arm64-ab-vndklite-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    #xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/"$BUILD"_arm64-ab-slim-12.1-$BUILD_DATE-UNOFFICIAL.img.xz
-    #rm -rf $BD/system-*.img
     echo
 }
 
@@ -122,8 +119,6 @@ fi
 setupEnv
 buildTrebleApp
 buildVariant
-#buildSlimVariant
-#buildVndkliteVariant
 generatePackages
 
 END=`date +%s`
