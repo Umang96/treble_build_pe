@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remove-project name="packages_apps_Settings" />
   <remove-project name="frameworks_base" />
   <remove-project name="platform/external/sqlite" />
   <remove-project name="platform/libcore" />
@@ -14,7 +13,6 @@
   <project name="umang96/treble_app" path="treble_app" remote="github" revision="twelve" />
   <project name="ponces/sas-creator" path="sas-creator" remote="github" revision="master" />
   <project name="notmyst33d/libaptX" path="external/aptx" remote="github" revision="main" />
-  <project name="umang96/packages_apps_Settings" path="packages/apps/Settings" remote="github" revision="twelve-plus" />
   <project name="umang96/frameworks_base" path="frameworks/base" remote="github" revision="twelve-plus" />
   <project name="crdroidandroid/android_external_sqlite" path="external/sqlite" remote="github" revision="12.1" />
   <project name="umang96/libcore" path="libcore" remote="github" revision="tweve-plus" />
